@@ -4,7 +4,7 @@ import {TaskType, Todolist} from "./Todolist";
 
 function App() {
     // debugger;
-
+    //Таблицы тасков
     let tasks1 = [
         {id: 1, title: 'CSS', isDone: true},
         {id: 2, title: 'HTML', isDone: true},
