@@ -24,7 +24,13 @@ function App() {
     let [filter, setFilter] = useState<FilterValuesType>('all')
 
     //прописываем функции
-
+    function changeStatus(taskId: string, isDone: boolean) {
+        let task = tasks.find( task => task.id === taskId);
+        if (task) {
+            task.isDone = isDone;
+        }
+        setTasks([...tasks]);
+    }
     function changeFilter (value: FilterValuesType) {
 
         setFilter(value);
@@ -60,6 +66,8 @@ function App() {
                       deleteTaskProps={deleteTask}
                       changeFilterProps={changeFilter}
                       addTaskProps={addTask}
+                      changeStatusProps = {changeStatus}
+                      filterProps={filter}
             />
         </div>
     );
