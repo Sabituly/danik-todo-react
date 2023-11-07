@@ -1,4 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, IconButton, TextField} from "@material-ui/core";
+import ControlPointDuplicateIcon from '@material-ui/icons/ControlPointDuplicate';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -12,14 +14,9 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
         setNewTaskTitle(e.currentTarget.value)
     }
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (e.charCode === 13) {
-            addTask();
-        }
-    }
 
-    const addTask = () => {
+
+    const addItem = () => {
         if (newTaskTitle.trim() !== "") {
             props.addItem(newTaskTitle.trim());
             setNewTaskTitle('');
@@ -29,15 +26,29 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
     }
 
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
+        if (e.charCode === 13) {
+            addItem();
+        }
+    }
+
     return (
         <div>
-            <input value={newTaskTitle}
-                   onChange={onNewTitleChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? 'error' : ''}
+
+            <TextField value={newTaskTitle}
+                       variant={'outlined'}
+                       label={'Fill field'}
+                       onChange={onNewTitleChangeHandler}
+                       onKeyPress={onKeyPressHandler}
+                       error={!!error} // спросить
+                       helperText={error}
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className={'error-message'}>{error}</div>}
+
+            <IconButton onClick={addItem} color={'primary'}>
+                <ControlPointDuplicateIcon/>
+            </IconButton>
+
 
         </div>
     )
